@@ -1,6 +1,9 @@
 package com.example.gymapp;
 
-public class Training {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Training implements Parcelable {
     private int id;
     private String name;
     private String shortDesc;
@@ -14,6 +17,26 @@ public class Training {
         LongDesc = longDesc;
         ImageUrl = imageUrl;
     }
+
+    protected Training(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        shortDesc = in.readString();
+        LongDesc = in.readString();
+        ImageUrl = in.readString();
+    }
+
+    public static final Creator<Training> CREATOR = new Creator<Training>() {
+        @Override
+        public Training createFromParcel(Parcel in) {
+            return new Training(in);
+        }
+
+        @Override
+        public Training[] newArray(int size) {
+            return new Training[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -64,5 +87,20 @@ public class Training {
 
     public void setImageUrl(String imageUrl) {
         ImageUrl = imageUrl;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(shortDesc);
+        dest.writeString(LongDesc);
+        dest.writeString(ImageUrl);
     }
 }
