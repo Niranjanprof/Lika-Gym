@@ -22,6 +22,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
 
     ArrayList<Plan> plans = new ArrayList<>();
     private Context context;
+    private String type = "";
 
     public PlanAdapter(Context context) {
         this.context = context;
@@ -59,6 +60,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
+
+        if(type.equals("edit")){
+            //TODO
+        }
     }
 
     @Override
@@ -66,8 +71,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
         return plans.size();
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public void setPlans(ArrayList<Plan> plans) {
         this.plans = plans;
+        notifyDataSetChanged();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder{

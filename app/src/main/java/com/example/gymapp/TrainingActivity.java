@@ -50,7 +50,6 @@ public class TrainingActivity extends AppCompatActivity implements PlanDetailDia
                 btnAddToPlan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO Dialog BOx
                         PlanDetailDialog dialog = new PlanDetailDialog();
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(TRAINING_KEY,training);

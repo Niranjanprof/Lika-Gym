@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".PlanActivity">
     <RelativeLayout
+
         android:id="@+id/noPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -208,7 +209,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/fridayRelLayout"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp">
 
                 <TextView

@@ -38,6 +38,7 @@ public class PlanActivity extends AppCompatActivity {
                 nestedScrollView.setVisibility(View.VISIBLE);
 
                 initRecViews();
+                setEditOnClickListeners();
 
             }else{
                 noPlanRelLayout.setVisibility(View.VISIBLE);
@@ -64,6 +65,65 @@ public class PlanActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void setEditOnClickListeners() {
+        final Intent intent = new Intent(this,EditActivity.class);
+        mondayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Monday");
+                startActivity(intent);
+            }
+        });
+        tuesdayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Tuesday");
+                startActivity(intent);
+            }
+        });
+        wednesdayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Wednesday");
+                startActivity(intent);
+            }
+        });
+        thursdayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Thursday");
+                startActivity(intent);
+            }
+        });
+        fridayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Friday");
+                startActivity(intent);
+            }
+        });
+        saturdayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Saturday");
+                startActivity(intent);
+            }
+        });mondayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Monday");
+                startActivity(intent);
+            }
+        });
+        sundayEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("day","Sunday");
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRecViews() {
@@ -139,5 +199,12 @@ public class PlanActivity extends AppCompatActivity {
         btnAddPlan = findViewById(R.id.btnAddPlan);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent  = new Intent(this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
