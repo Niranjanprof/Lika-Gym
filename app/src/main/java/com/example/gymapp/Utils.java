@@ -46,4 +46,8 @@ public class Utils {
         }
         return plans.add(plan);
     }
+
+    public static ArrayList<Plan> getPlans() {
+        return plans;
+    }
 }
