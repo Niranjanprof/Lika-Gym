@@ -1,12 +1,15 @@
 package com.example.gymapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +23,14 @@ import static com.example.gymapp.TrainingActivity.TRAINING_KEY;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
 
+    public interface  RemovePlan{
+        void onRemovePlan(Plan plan);
+    }
+
     ArrayList<Plan> plans = new ArrayList<>();
     private Context context;
     private String type = "";
+    private RemovePlan removePlan;
 
     public PlanAdapter(Context context) {
         this.context = context;
@@ -62,8 +70,59 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
         });
 
         if(type.equals("edit")){
-            //TODO
+            holder.empty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context)
+                            .setTitle("Finished").setMessage("Have you finished "+plans.get(position).getTraining().getName()+" ?")
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    for (Plan p:Utils.getPlans()
+                                         ) {
+                                        if(p.equals(plans.get(position))){
+                                            p.setFinished(true);
+                                        }
+                                    }
+                                    notifyDataSetChanged();
+                                }
+                            });
+                    builder.create().show();
+                }
+            });
         }
+        holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context)
+                        .setTitle("Remove")
+                        .setMessage("Are you sure you want to remove "+plans.get(position).getTraining().getName()+" from your plan?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    removePlan = (RemovePlan) context;
+                                    removePlan.onRemovePlan(plans.get(position));
+                                }catch (ClassCastException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                builder.create().show();
+                return true;
+            }
+        });
     }
 
     @Override

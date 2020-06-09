@@ -1,7 +1,9 @@
 package com.example.gymapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +21,27 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         Utils.initTrainings();
-        //TODO Create on Click Listeners
 
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("About").setMessage("Visit My Git Page for the Code")
+                        .setPositiveButton("Visit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MainActivity.this,WebActivity.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.create().show();
+            }
+        });
         btnAllActivities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
