@@ -54,7 +54,12 @@ public class PlanDetailDialog extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         String day = spinnerDay.getSelectedItem().toString();
-                        int minutes = Integer.valueOf(edtTxtMinutes.getText().toString());
+                        int minutes = -1;
+                        try {
+                            minutes = Integer.valueOf(edtTxtMinutes.getText().toString());
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
                         Plan plan = new Plan(training, minutes, day, false);
                         try {
                             passPlanInterface = (PassPlanInterface) getActivity();

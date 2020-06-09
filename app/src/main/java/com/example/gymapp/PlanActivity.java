@@ -173,7 +173,6 @@ public class PlanActivity extends AppCompatActivity {
         }
         return plans;
     }
-
     private void initViews() {
 
         mondayEdit = findViewById(R.id.mondayEdit);

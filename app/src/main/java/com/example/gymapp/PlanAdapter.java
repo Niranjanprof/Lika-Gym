@@ -48,7 +48,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(plans.get(position).getTraining().getName());
         holder.desc.setText(plans.get(position).getTraining().getShortDesc());
-        holder.time.setText(String.valueOf(plans.get(position).getMinutes() + " min"));
+        if(plans.get(position).getMinutes() == -1){
+            holder.time.setText("Unknown Time");
+        }else {
+            holder.time.setText(String.valueOf(plans.get(position).getMinutes() + " min"));
+        }
         Glide.with(context).asBitmap().load(plans.get(position).getTraining().getImageUrl()).into(holder.image);
         if(plans.get(position).isFinished()){
             holder.empty.setVisibility(View.GONE);
